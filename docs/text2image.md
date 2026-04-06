@@ -2,7 +2,7 @@
 
 Text to Image generates a brand new picture entirely from your text description. There is no starting image — the model begins from pure noise and sculpts it into something matching your prompt over many small steps. Use this tab when you want to create something from scratch.
 
-![Text to Image Example](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/text2image.png)
+![Text to Image Example](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/text2image.png)
 
 ---
 

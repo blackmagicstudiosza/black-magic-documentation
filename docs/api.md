@@ -14,8 +14,6 @@ Currently supported providers:
 - **Grok** — image generation via xAI's Grok API.
 - **RetroDiffusion** — specialized for retro and pixel art styles.
 
-![API Tab Overview](images/api_tab.png)
-
 ---
 
 ## Quick Start
@@ -32,7 +30,7 @@ Your API key and provider settings are saved in plugin preferences and will be t
 
 ## Provider: PixelLab
 
-![PixelLab Example Output](images/api_pixellab_example.png)
+![PixelLab Example Output](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/api_pixellabs.png)
 
 PixelLab is a cloud API purpose-built for pixel art generation. It is a good choice if you want high-quality pixel art without setting up local pixel art models.
 
@@ -65,7 +63,7 @@ The output dimensions in pixels. These are **clamped between 16 and 400 pixels**
 
 ## Provider: Nano Banana
 
-![Nano Banana Example Output](images/api_nanobanana_example.png)
+![Nano Banana Example Output](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/api_nano_banana.png)
 
 Nano Banana is a general-purpose image generation API. It supports multiple aspect ratios and resolutions and has a text-to-image and image-to-image mode.
 
@@ -116,7 +114,7 @@ Selects the output resolution tier.
 
 ## Provider: OpenAI
 
-![OpenAI Example Output](images/api_openai_example.png)
+![OpenAI Example Output](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/api_openai.png)
 
 OpenAI provides image generation through their API. Requires an OpenAI API key.
 
@@ -145,7 +143,7 @@ Controls the generation quality / detail level. Options depend on the selected m
 
 ## Provider: Grok
 
-![Grok Example Output](images/api_grok_example.png)
+![Grok Example Output](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/api_grok.png)
 
 Grok provides image generation through xAI's API. Requires a Grok/xAI API key.
 
@@ -187,7 +185,7 @@ Selects the shape of the output image.
 
 ## Provider: RetroDiffusion
 
-![RetroDiffusion Example Output](images/api_retrodiffusion_example.png)
+![RetroDiffusion Example Output](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/api_retrodiffusion.png)
 
 RetroDiffusion is a cloud API specialized for retro and pixel art generation at small resolutions.
 

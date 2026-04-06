@@ -2,11 +2,10 @@
 
 The Tools tab provides utility actions that work alongside the main generation tabs. These are standalone operations — they don't use the full ComfyUI generation pipeline in the same way, but some of them run ComfyUI workflows under the hood.
 
+![Tools](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/tools.png)
 ---
 
 ## ControlNet Reference Generator
-
-![ControlNet Reference Generator](images/tools_controlnet_refgen.png)
 
 Generates a structural reference image from your active sprite that can then be used as a ControlNet control image.
 
@@ -42,8 +41,6 @@ Analyzes your sprite and generates a grayscale depth map where bright areas are 
 
 ## Wang Tileset Generator
 
-![Wang Tileset Example](images/tools_wang_tileset.png)
-
 Generates a complete **Wang tileset** from a 96×96 input sprite.
 
 ### What Is a Wang Tileset?
@@ -61,8 +58,6 @@ A Wang tileset is a set of tiles arranged so that their edges connect seamlessly
 
 ## Pixelate
 
-![Pixelate Before and After](images/tools_pixelate.png)
-
 Reduces the resolution of your active sprite to simulate a pixel art look, then optionally scales it back up.
 
 ### How to Use
@@ -76,8 +71,6 @@ Reduces the resolution of your active sprite to simulate a pixel art look, then 
 ---
 
 ## Background Removal
-
-![Background Removal Before and After](images/tools_background_removal.png)
 
 Removes the background from your active sprite using the **Inspyrenet Rembg** ComfyUI node.
 

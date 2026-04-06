@@ -2,7 +2,7 @@
 
 The Settings tab handles server management, model installation, and plugin-level preferences. You typically only need to visit this tab during initial setup or when adding new models.
 
-![Settings Tab](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/settings.png)
+![Settings Tab](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/settings.png)
 
 ---
 
@@ -44,8 +44,6 @@ Only change this if port `8388` is already in use.
 ---
 
 ## Import Models
-
-![Import Model Dialog](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/import_model_dialog.png)
 
 Models are the files the AI uses. You need at least one checkpoint model to generate images. LoRAs, ControlNets, and other model types are optional but unlock additional features.
 

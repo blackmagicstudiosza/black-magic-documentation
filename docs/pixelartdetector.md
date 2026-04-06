@@ -1,140 +1,75 @@
-# PixelArt Detector - Reference
+# Pixel Art Tab
 
-The Pixel Art tab uses the **ComfyUI-PixelArt-Detector** custom nodes (`https://github.com/dimtoneff/ComfyUI-PixelArt-Detector`)
-to provide palette reduction and conversion.
+## What Is This?
 
-The tab is implemented in `generation_menu:add_pixelart_widgets(dlg, plugin, generation_bounds)` in `generation_menu.lua`.
+The Pixel Art tab uses **ComfyUI-PixelArt-Detector** to reduce and convert the colors in your active sprite to a target palette. Instead of generating a new image from a prompt, this tab processes your existing canvas and remaps its colors to match a chosen palette — either one of the built-in presets or your sprite's own Aseprite palette.
+
+**What you can do:**
+- Reduce an image to a classic retro palette (NES, GAMEBOY, PICO8, CGA, and more).
+- Remap colors to your current Aseprite palette to enforce a consistent color scheme across multiple sprites.
+- Control how colors are quantized, how underused colors are cleaned up, and whether dithering is applied.
+- Optionally resize the output at the same time as palette conversion.
+
+![Pixel Art](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/pixel_art.png)
+
+---
+
+## Quick Start
+
+1. Open the sprite you want to convert in Aseprite.
+2. Open the generation dialog and switch to the **Pixel Art** tab.
+3. Select a **Palette** — choose `Aseprite Palette` to use the colors already in your sprite, or pick a preset like `NES` or `PICO8`.
+4. Leave **Pixelize Method** and **Reduction Method** at their defaults to start.
+5. Adjust **Max Colors** if needed — it defaults to the number of colors in your current Aseprite palette (clamped to 8–256).
+6. Click **Reduce Palette**.
+
+The result replaces the canvas content with the palette-converted image.
+
+---
 
 ## Installation
 
-Installed via `setup:pixelart_detector_nodes_setup()` in `setup.lua`:
-- URL: `https://github.com/dimtoneff/ComfyUI-PixelArt-Detector`
-- Directory: `ComfyUI-PixelArt-Detector`
-- Preference key: `pixelart_detector_installed`
+The Pixel Art tab requires the **ComfyUI-PixelArt-Detector** custom nodes. These are installed automatically during the Black Magic setup process. If they are missing, run **Edit → Black Magic → Installation → Restart Installation** to trigger the setup again.
 
-## Workflow Mode Selector
+- Repository: `https://github.com/dimtoneff/ComfyUI-PixelArt-Detector`
 
-The tab uses a combobox (`pixelart_workflow_mode`) to select the active workflow. Currently only one mode exists:
-- `"Palette Reduction"` — Reduce/convert the active sprite to a target palette
+---
 
-## Palette Reduction Workflow
+## Palette
 
-Converts the active sprite to a target palette using `PixelArtDetectorConverter`.
+Selects the target palette that all colors in the sprite will be mapped to.
 
-### UI Widgets
+| Option | What It Does |
+|---|---|
+| `Aseprite Palette` | Uses the actual colors from your current sprite's palette. The palette is exported as a small PNG and fed to ComfyUI — you get a conversion that stays within the exact colors you have already defined in Aseprite. |
+| `GAMEBOY`, `NES`, `COMMODORE64`, `CGA`, `PICO8`, etc. | Uses a built-in preset palette from the PixelArt Detector node. No Aseprite palette setup needed. |
 
-| Widget ID | Type | Label | Options / Range | Default |
-|-----------|------|-------|-----------------|---------|
-| `pr_palette` | combobox | Palette | Aseprite Palette, GAMEBOY, NES, COMMODORE64, CGA, PICO8, STEAM_LORDS, RESURRECT64, AAP64, APOLLO, ENDESGA64, ZUGHY32, LOSPEC500, SWEETIE16, FANTASY16, CYBERPUNK | Aseprite Palette |
-| `pr_pixelize` | combobox | Pixelize Method | Image.quantize, Grid.pixelate, NP.quantize | Image.quantize |
-| `pr_max_colors` | slider | Max Colors | 2–256 | 64 |
-| `pr_reduce_method` | combobox | Reduction Method | Image.quantize, OpenCV.kmeans.reduce, Pycluster.kmeans.reduce, Pycluster.kmedians.reduce | Image.quantize |
-| `pr_quantize_method` | combobox | Quantize Algorithm | MAXCOVERAGE, MEDIANCUT, FASTOCTREE | MAXCOVERAGE |
-| `pr_reduce_before_swap` | check | Reduce Colors Before Palette Swap | bool | true |
-| `pr_cleanup_colors` | check | Cleanup Underused Colors | bool | true |
-| `pr_cleanup_threshold` | slider | Cleanup Threshold | 1–1000 (×0.001) | 30 |
-| `pr_dither` | combobox | Dither | none, floyd-steinberg, bayer-2, bayer-4, bayer-8, bayer-16 | none |
-| `pr_resize_w` | number | Resize Width (0=off) | integer | 0 |
-| `pr_resize_h` | number | Resize Height (0=off) | integer | 0 |
-| `pr_resize_type` | combobox | Resize Mode | contain, fit, stretch | contain |
+**Available presets:** GAMEBOY, NES, COMMODORE64, CGA, PICO8, STEAM_LORDS, RESURRECT64, AAP64, APOLLO, ENDESGA64, ZUGHY32, LOSPEC500, SWEETIE16, FANTASY16, CYBERPUNK.
 
-### Code Paths
+**Note:** When using `Aseprite Palette`, the sprite's palette must have between 8 and 256 colors.
 
-When `pr_palette == "Aseprite Palette"`, the sprite's current palette is exported as a PNG and fed through `PixelArtPaletteGenerator` to produce a `LIST` that is connected to `PixelArtDetectorConverter` via the optional `paletteList` input. Otherwise, the selected preset string is passed directly as the `palette` input.
+---
 
-### Workflow — Aseprite Palette selected
+## Controls
 
-```
-Node 1: LoadImage (canvas sprite)
-Node 5: LoadImage (exported palette PNG: num_colors × 1 px, one pixel per palette entry)
-Node 6: PixelArtPaletteGenerator
-  inputs:
-    image = {5, 0}
-    colors = number of colors in sprite palette
-    mode = "Chart"
-  outputs:
-    [0] image  (IMAGE)
-    [1] color_palettes  (LIST)
-Node 2: PixelArtDetectorConverter
-  inputs:
-    images = {1, 0}
-    paletteList = {6, 1}          ← LIST output from PixelArtPaletteGenerator
-    palette = "NES"               ← required field, ignored when paletteList is connected
-    resize_w, resize_h, resize_type
-    pixelize = selected method
-    grid_pixelate_grid_scan_size = 2
-    reduce_colors_before_palette_swap = bool
-    reduce_colors_method = selected method
-    reduce_colors_max_colors = slider value
-    apply_pixeldetector_max_colors = true
-    image_quantize_reduce_method = selected algorithm
-    opencv_settings = ""
-    opencv_kmeans_centers = "RANDOM_CENTERS"
-    opencv_kmeans_attempts = 10
-    opencv_criteria_max_iterations = 10
-    pycluster_kmeans_metrics = "EUCLIDEAN_SQUARE"
-    cleanup = ""
-    cleanup_colors = bool
-    cleanup_pixels_threshold = threshold × 0.001
-    dither = selected dither
-Node 3: SaveImage (prefix: datetime_palette_reduce)
-Node 4: SaveImageWebsocket (from node 2)
-```
+| Control | What It Does |
+|---|---|
+| **Pixelize Method** | How pixels are sampled during the conversion. `Image.quantize` is the standard choice. `Grid.pixelate` applies a grid-based pixelation before quantizing. `NP.quantize` uses NumPy-based quantization. |
+| **Max Colors** | The maximum number of colors allowed in the output. Defaults to the number of colors in your Aseprite palette (clamped to 8–256), or 64 if no sprite is active. |
+| **Reduction Method** | The algorithm used to reduce the image to Max Colors before the palette swap. `Image.quantize` is fast and reliable for most use cases. The OpenCV and Pycluster k-means options can produce better perceptual results but are slower. |
+| **Quantize Algorithm** | The quantization algorithm used by the `Image.quantize` reduction method. `MAXCOVERAGE` works well for most pixel art. `MEDIANCUT` and `FASTOCTREE` are alternatives if results look off. |
+| **Reduce Colors Before Palette Swap** | When enabled, the image is first reduced to Max Colors before it is mapped to the target palette. Disabling this skips the reduction step and maps directly. |
+| **Cleanup Underused Colors** | When enabled, palette colors that appear on fewer pixels than the threshold are removed. Useful for eliminating near-duplicate colors or single-pixel color noise. |
+| **Cleanup Threshold** | Controls how aggressively underused colors are removed. The slider value is multiplied by 0.001 — for example, `30` = `0.03`. Higher values remove more colors. |
+| **Dither** | Applies a dithering pattern when mapping colors to the palette. `none` is clean and sharp. `floyd-steinberg` gives smooth gradients. `bayer-2/4/8/16` apply ordered dithering at increasing grid sizes. |
+| **Resize Width / Height** | Optionally resize the output. Set to `0` to keep the original dimensions. |
+| **Resize Mode** | How the image is resized if Width or Height is set. `contain` preserves aspect ratio and fits within the target size. `fit` scales to fill the target. `stretch` ignores aspect ratio. |
 
-### Workflow — Preset palette selected
+---
 
-```
-Node 1: LoadImage (canvas sprite)
-Node 2: PixelArtDetectorConverter
-  inputs:
-    images = {1, 0}
-    palette = selected palette string (e.g. "NES", "GAMEBOY", ...)
-    resize_w, resize_h, resize_type
-    pixelize = selected method
-    grid_pixelate_grid_scan_size = 2
-    reduce_colors_before_palette_swap = bool
-    reduce_colors_method = selected method
-    reduce_colors_max_colors = slider value
-    apply_pixeldetector_max_colors = true
-    image_quantize_reduce_method = selected algorithm
-    opencv_settings = ""
-    opencv_kmeans_centers = "RANDOM_CENTERS"
-    opencv_kmeans_attempts = 10
-    opencv_criteria_max_iterations = 10
-    pycluster_kmeans_metrics = "EUCLIDEAN_SQUARE"
-    cleanup = ""
-    cleanup_colors = bool
-    cleanup_pixels_threshold = threshold × 0.001
-    dither = selected dither
-Node 3: SaveImage (prefix: datetime_palette_reduce)
-Node 4: SaveImageWebsocket (from node 2)
-```
+## Notes
 
-Called via: `api:api_start(ws, workflow, middleman_port, comfy_port, { hide_previous_layers = true })`
-
-## ComfyUI Node Class Types Used
-
-- `PixelArtDetectorConverter` — Palette conversion with many options
-- `PixelArtPaletteGenerator` — Extract palette LIST from an image (used for Aseprite Palette path)
-- `LoadImage` — Load input image
-- `SaveImage` — Save output image
-- `SaveImageWebsocket` — Stream result back to Aseprite
-
-## Common Patterns
-
-- Images saved to: `{app.fs.userConfigPath}extensions/black-magic/comfyUI/input/{datetime}_{suffix}.png`
-- Canvas saved via: `app.command.SaveFileCopyAs { ui = false, filename = image_path }`
-- Workflow submitted via: `api:api_start(ws, workflow, middleman_port, comfy_port, options)`
-- `{ hide_previous_layers = true }` used for operations that replace the canvas content
-- Cleanup threshold multiplied by 0.001 before sending
-- Aseprite Palette: exported as a `num_colors × 1` RGB PNG, one pixel per palette entry
-
-## Previously Removed Sections (for future restoration)
-
-The following sections existed in an earlier version of the tab and were removed. They may be restored in future:
-
-- **Palette Converter** — Section 1: standalone palette conversion (now merged into Palette Reduction)
-- **Palette Generator** — Section 2: `PixelArtPaletteGenerator` to extract a palette swatch image from a sprite
-- **Quick Palette Reduce** — Section 3: `PixelArtDetectorToImage` + `ImageScale` to restore original size
-- **Dither Pattern** — Section 4: `PixelArtAddDitherPattern` standalone dithering
-- **Full Pipeline** — Section 5: conversion + dithering in one workflow
+- The conversion replaces the canvas content — the previous canvas layer is hidden automatically.
+- When `Aseprite Palette` is selected, Max Colors is automatically set to the sprite's palette size on dialog open.
+- Dithering and color reduction interact: dithering is applied after the palette swap, so it uses the final target palette colors.
+- The Cleanup Threshold label shows `(Threshold x0.001, e.g. 30 = 0.03)` as a reminder of the scaling.

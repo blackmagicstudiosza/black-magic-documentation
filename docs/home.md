@@ -1,39 +1,35 @@
-# Black Magik — Documentation
+# Introduction
 
-AI image generation inside Aseprite, powered by ComfyUI.
+Welcome to the official documentation for Black Magic Studios products.
+This wiki provides everything you need to install, configure, and get the most out of our tools.
 
-![Black Magik Overview](images/home_overview.png)
+Currently, documentation is available for:
 
----
+Aseprite Pixel Art Generation Extension  
+Music Generation App (in progress)  
+Black Magic Studios Loras
 
-## Generation
+## Aseprite Extension
 
-| Page | Description |
-|---|---|
-| [Text to Image](Text-to-Image) | Generate images from a text prompt |
-| [Image to Image](Image-To-Image) | Transform your existing canvas using a prompt |
-| [Inpaint / Outpaint](Inpainting-And-Outpainting) | Regenerate a selected region or extend the canvas |
-| [IPAdapter](IPAdapter) | Guide generation using a reference image |
-| [ControlNet](Controlnet) | Guide generation using pose, depth, edges, and more |
-| [Pixel Art](pixelartdetector) | Palette reduction and conversion using PixelArt Detector nodes |
+Guides covering all major features of the extension:  
 
----
+* [Install](https://github.com/blackmagicstudiosza/black-magic-documentation/wiki/Install)
+* [Text To Image](https://github.com/blackmagicstudiosza/black-magic-documentation/wiki/Text-to-Image)
+* [Image To Image](https://github.com/blackmagicstudiosza/black-magic-documentation/wiki/Image-To-Image)
+* [Inpainting And Outpainting](https://github.com/blackmagicstudiosza/black-magic-documentation/wiki/Inpainting-And-Outpainting)
+* [IPAdapter](https://github.com/blackmagicstudiosza/black-magic-documentation/wiki/IPAdapter)
+* [Control Net](https://github.com/blackmagicstudiosza/black-magic-documentation/wiki/Controlnet)
+* [API](https://github.com/blackmagicstudiosza/black-magic-documentation/wiki/API)
+* [Tools](https://github.com/blackmagicstudiosza/black-magic-documentation/wiki/Tools)
+* [Pixel Art](https://github.com/blackmagicstudiosza/black-magic-documentation/wiki/Pixel-Art)
+* [Settings](https://github.com/blackmagicstudiosza/black-magic-documentation/wiki/Settings)
 
-## Reference
+## Music Generation
 
-| Page | Description |
-|---|---|
-| [Tools](Tools) | Wang tilesets, pixelation, background removal, ControlNet reference generator |
-| [API Providers](API) | Cloud generation via PixelLab, Nano Banana, OpenAI, Grok, and RetroDiffusion |
-| [Settings](Settings) | Server management, model installation, plugin preferences |
-| [Custom LoRAs](Black-Magic-LoRAs) | Trained LoRAs — settings, trigger words, and recommended parameters |
+Documentation for the music generation app is currently under development.
 
----
+## Loras
 
-## Quick Start
+Resources and documentation for Black Magic LoRAs:  
 
-1. Go to the **Settings** tab and click **Start Servers**.
-2. Wait for both servers to show as running.
-3. Open the **Text to Image** tab, pick a model, write a prompt, and click **Generate**.
-
-New to diffusion models? Start with the [Text to Image](Text-to-Image) page — it explains checkpoints, LoRAs, and all KSampler settings from scratch.
+[Loras](https://github.com/blackmagicstudiosza/black-magic-documentation/wiki/Black-Magic-LoRAs)

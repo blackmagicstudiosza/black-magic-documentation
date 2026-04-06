@@ -10,7 +10,8 @@ Use this tab when you want to:
 - Extend an image beyond its current borders.
 - Replace the background while keeping your character.
 
-![Inpaint Example](images/inpaint_example.png)
+
+![Inpaint Example](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/in_out_painting.png)
 
 ---
 
@@ -27,9 +28,13 @@ Use this tab when you want to:
 
 ## How the Selection Works
 
-![Selection Mask](images/inpaint_selection.png)
+![Inpaint Example 1](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/in_out_paint_original.png)
 
-The Aseprite selection is converted into a **mask** that tells the model which pixels to regenerate. Areas **inside** the selection are rebuilt. Areas **outside** the selection are preserved exactly.
+![Selection Mask](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/in_out_paint_example.png)
+
+![Inpaint Example 3](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/in_out_paint_example_output.png)
+
+The Aseprite selection or area's with an alpha of 0 are converted into a **mask** that tells the model which pixels to regenerate. Areas **inside** the selection are rebuilt. Areas **outside** the selection are preserved exactly.
 
 The model also sees the surrounding unmasked pixels as context — this helps it blend the newly generated content naturally into the existing image.
 
@@ -220,7 +225,9 @@ Controls how freely the model regenerates the selected region.
 
 ## Outpainting
 
-![Outpaint Example](images/inpaint_outpaint_example.png)
+![Outpaint Example](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/outpaint1.png)
+
+![Outpaint Example](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/outpaint2.png)
 
 Outpainting extends your image into new areas using the same tab.
 

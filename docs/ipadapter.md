@@ -8,7 +8,7 @@ Common use cases:
 - Keep a consistent visual style across multiple generations using the same reference.
 - Regional mode: control different spatial zones of the image with different reference images.
 
-![IPAdapter Reference to Output](images/ipadapter_example.png)
+
 
 ---
 
@@ -17,12 +17,18 @@ Common use cases:
 Choose a mode from the **Mode** dropdown at the top of the tab. Changing the mode rebuilds the entire dialog with the appropriate workflow.
 
 ### Text2Img + Reference
+![Text to Image IPAdapter Reference to Output](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/ipadapter_text2image.png)
+
 Generates a new image from noise, guided by both your prompt and a single reference image. No input sprite is needed.
 
 ### Img2Img + Reference
+![Text to Image IPAdapter Reference to Output](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/ipadapter_image2image.png)
+
 Uses your current canvas as the structural starting point AND a separate reference image for style/visual guidance. Combines structural preservation with IPAdapter style transfer.
 
 ### Regional + Multi-Reference
+![Regional Mode Example](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/ipadapter_regional.png)
+
 Divides the image into up to 5 color-coded regions, each guided by its own reference image and its own prompt. Useful for generating complex scenes where different areas should look distinct.
 
 ---
@@ -201,8 +207,6 @@ Adds noise to the image embedding before it is applied. A small amount (`0.0–0
 ---
 
 ## Regional Configuration
-
-![Regional Mode Example](images/ipadapter_regional_example.png)
 
 Only available in **Regional + Multi-Reference** mode.
 

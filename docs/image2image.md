@@ -9,7 +9,7 @@ Use this tab when you want to:
 
 The key parameter that controls how much of the original image is preserved is **Denoise %**.
 
-![Image to Image Before and After](images/image2image_example.png)
+![Image to Image Before and After](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/image2image.png)
 
 ---
 
@@ -172,8 +172,6 @@ Controls how the noise level changes across the steps.
 ---
 
 ### Denoise % — The Most Important Img2Img Setting
-
-![Denoise Comparison](images/image2image_denoise_comparison.png)
 
 Denoise controls the balance between **preserving your original image** and **creating something new**.
 

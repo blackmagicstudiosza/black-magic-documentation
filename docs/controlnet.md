@@ -12,7 +12,7 @@ ControlNet lets you guide image generation using a **structural reference image*
 
 ControlNet separates *what* to generate (your text prompt) from *how it should be arranged spatially* (the control image). This makes it one of the most powerful tools for getting consistent, predictable compositions.
 
-![ControlNet Overview](images/controlnet_example.png)
+![ControlNet Overview](https://github.com/blackmagicstudiosza/black-magic-documentation/blob/main/images/controlnet.png)
 
 ---
 
@@ -70,8 +70,6 @@ The ControlNet model defines what **kind of structural signal** it reads from th
 
 ### Canny
 
-![Canny Example](images/controlnet_canny.png)
-
 **What it does:** Canny reads a map of the outlines and sharp edges in your image, then generates output whose objects fall along those same edges. It is one of the most precise ControlNet types — the generated image will closely follow every contour in the control map.
 
 **Control image:** A black image with white lines drawn along every edge and boundary (called an edge map or canny map). It looks like a technical line drawing with no fill, just outlines.
@@ -88,8 +86,6 @@ The ControlNet model defines what **kind of structural signal** it reads from th
 ---
 
 ### OpenPose
-
-![OpenPose Example](images/controlnet_openpose.png)
 
 **What it does:** OpenPose reads a skeleton diagram — a stick figure showing the positions of a body's joints (head, shoulders, elbows, wrists, hips, knees, ankles) — and generates a character or figure in that exact pose.
 
@@ -110,8 +106,6 @@ The ControlNet model defines what **kind of structural signal** it reads from th
 
 ### Depth
 
-![Depth Map Example](images/controlnet_depth.png)
-
 **What it does:** Depth reads a grayscale image that encodes how close or far each part of the scene is from the viewer — white means close, black means far. The model uses this to recreate the same spatial layout and sense of 3D depth.
 
 **Control image:** A grayscale image. Bright areas are in the foreground, dark areas are in the background. It should look like a foggy or x-ray version of your scene where distance is shown by brightness.
@@ -128,8 +122,6 @@ The ControlNet model defines what **kind of structural signal** it reads from th
 ---
 
 ### Lineart
-
-![Lineart Example](images/controlnet_lineart.png)
 
 **What it does:** Lineart is similar to Canny but designed for artistic line drawings rather than algorithmically detected edges. It is more tolerant of hand-drawn or softly defined lines and produces smoother, less mechanical results.
 
@@ -148,8 +140,6 @@ The ControlNet model defines what **kind of structural signal** it reads from th
 
 ### Scribble
 
-![Scribble Example](images/controlnet_scribble.png)
-
 **What it does:** Scribble is a forgiving, rough version of line control. You give it a loose hand-drawn sketch and it uses that as a general compositional guide rather than an exact structural rule. The model has much more freedom to interpret and fill in the details.
 
 **Control image:** A rough freehand sketch — thick, imprecise lines are fine. It does not need to be clean or accurate. Think of it as drawing a very quick napkin sketch that suggests *where things are* rather than defining them precisely.
@@ -166,8 +156,6 @@ The ControlNet model defines what **kind of structural signal** it reads from th
 ---
 
 ### Tile
-
-![Tile Example](images/controlnet_tile.png)
 
 **What it does:** Tile ControlNet works very differently from the others. Instead of enforcing broad composition, it enforces *local detail consistency* — it tells the model to add fine detail that is faithful to small patches of the control image. It is primarily used for upscaling and adding detail to existing images rather than generating from scratch.
 
